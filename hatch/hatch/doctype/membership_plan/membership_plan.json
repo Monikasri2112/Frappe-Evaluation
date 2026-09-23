@@ -38,13 +38,13 @@
    "fieldname": "allowed_resource_type",
    "fieldtype": "Table MultiSelect",
    "label": "Allowed Resource Type",
-   "options": "Booking Add-on Entry"
+   "options": "memplan item"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-09-22 16:31:58.118591",
+ "modified": "2026-09-23 11:07:08.287314",
  "modified_by": "Administrator",
  "module": "hatch",
  "name": "MEMBERSHIP PLAN",

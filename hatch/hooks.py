@@ -262,6 +262,9 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
-permission_query_conditions = {
-    "Booking": "app.permissions.todo_query",
-}
+# permission_query_conditions = {
+#     "Booking": "hatch.permissions.todo_query",
+# }
+
+
+after_install = "hatch.api.after_install"
