@@ -45,7 +45,6 @@
   {
    "fieldname": "member",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Member",
    "options": "MEMBER",
    "reqd": 1
@@ -137,6 +136,7 @@
    "options": "Unpaid\nPaid"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "status",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -148,7 +148,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-09-22 16:53:09.307289",
+ "modified": "2026-09-24 12:20:57.060163",
  "modified_by": "Administrator",
  "module": "hatch",
  "name": "Booking",

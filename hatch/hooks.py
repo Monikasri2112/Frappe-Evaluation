@@ -268,3 +268,31 @@ app_license = "mit"
 
 
 after_install = "hatch.api.after_install"
+doc_events = {
+    "Booking": {
+            "on_update": "hatch.api.log_change",
+            "on_submit": "hatch.api.log_change",
+            "on_cancel": "hatch.api.log_change",
+        },
+    "MEMBER": {
+            "on_update": "hatch.api.log_change",
+            "on_submit": "hatch.api.log_change",
+            "on_cancel": "hatch.api.log_change",
+        },
+    "MEMBERSHIP PLAN": {
+            "on_update": "hatch.api.log_change",
+            "on_submit": "hatch.api.log_change",
+            "on_cancel": "hatch.api.log_change",
+        },
+    "RESOURCE": {
+            "on_update": "hatch.api.log_change",
+            "on_submit": "hatch.api.log_change",
+            "on_cancel": "hatch.api.log_change",
+        },
+    "Booking Add-on Entry": {
+            "on_update": "hatch.api.log_change",
+            "on_submit": "hatch.api.log_change",
+            "on_cancel": "hatch.api.log_change",
+        }
+
+}
