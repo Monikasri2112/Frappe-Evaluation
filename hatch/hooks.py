@@ -273,6 +273,7 @@ doc_events = {
             "on_update": "hatch.api.log_change",
             "on_submit": "hatch.api.log_change",
             "on_cancel": "hatch.api.log_change",
+            "before_print": "hatch.hatch.doctype.booking.booking.before_print"
         },
     "MEMBER": {
             "on_update": "hatch.api.log_change",

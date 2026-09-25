@@ -130,3 +130,5 @@ def send_booking_email(booking_name):
 		"""
 	)
 
+def before_print(doc, method=None,print_settings=None):
+	doc.print_summary = f"{doc.member} - {doc.resource}"

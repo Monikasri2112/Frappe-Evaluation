@@ -154,3 +154,28 @@ refresh(frm){
     })
 }
 })
+frappe.ui.form.on("Booking", {
+
+    member(frm) {
+
+        frm.set_value("resource", null);
+
+        frm.set_query("resource", function() {
+
+            if (!frm.doc.member) {
+                return {};
+            }
+
+            return {
+                query: "hatch.api.get_allowed_resources",
+                filters: {
+                    member: frm.doc.member
+                }
+            };
+
+        });
+
+    }
+
+});
+

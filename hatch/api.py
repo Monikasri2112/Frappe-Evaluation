@@ -17,6 +17,7 @@ def reassign_bookings(from_member, to_member) :
             SET member = %(to_member)s
             WHERE member = %(from_member)s
             and status IN ('Pending Confirmation', 'Confirmed')
+            and booking_date >= CURDATE()
             """,
             {"from_member": from_member, "to_member": to_member}
         )
@@ -74,58 +75,6 @@ def log_change(doc,method):
      })
     log.insert()
 
-
-# def check_availability(doc):
-#             if not doc.resource or not doc.start_time or not doc.end_time:
-#                 return
-     
-#             resource_capacity = frappe.db.get_value(
-#                 "RESOURCE",
-#                 doc.resource,
-#                 "capacity"
-#             )
-     
-#             if not resource_capacity:
-#                 return
-     
-#             result = frappe.db.sql(
-#                 """
-#                 SELECT COALESCE(SUM(headcount), 0) 
-#                 FROM `tabBooking`
-#                 WHERE resource = %s
-#                 AND name != %s
-#                 AND status IN (
-#                     'Pending Confirmation',
-#                     'Confirmed',
-#                     'Checked-In'
-#                 )
-#                 AND start_time < %s
-#                 AND end_time > %s
-#                 AND booking_date = %s
-#                 """,
-#                 (
-#                     doc.resource,
-#                     doc.name or "",
-#                     doc.end_time,
-#                     doc.start_time,
-#                     doc.booking_date
-#                 )
-#             )
-     
-#             existing_headcount = result[0][0] or 0
-#             total_headcount = existing_headcount + (doc.headcount or 0)
-     
-#             if total_headcount > resource_capacity:
-#                 available = resource_capacity - existing_headcount
-#                 frappe.throw(
-#                     f"Booking cannot be created. "
-#                     f"Only {max(available, 0)} seat(s) are available."
-#                 )
-
-
-
-
-
 @frappe.whitelist()
 def check_availability(resource, booking_date, start_time, end_time, headcount=0, booking_name=None):
 
@@ -178,3 +127,40 @@ def check_availability(resource, booking_date, start_time, end_time, headcount=0
         "requested": requested_headcount,
         "can_book": requested_headcount <= available
     }
+import frappe
+
+
+@frappe.whitelist()
+def get_allowed_resources(doctype, txt, searchfield, start, page_len, filters):
+
+    filters = frappe.parse_json(filters)
+
+    member = filters.get("member")
+
+    if not member:
+        return []
+
+    membership_plan = frappe.db.get_value(
+        "MEMBER",
+        member,
+        "membership_plan"
+    )
+
+    if not membership_plan:
+        return []
+
+    allowed_resources = frappe.get_all(
+        "memplan item",
+        filters={
+            "parent": membership_plan
+        },
+        pluck="resource"
+    )
+
+    if not allowed_resources:
+        return []
+
+    return [
+        [resource]
+        for resource in allowed_resources
+    ]
