@@ -47,6 +47,6 @@ Ignore permission provides access to a particular doctype to the user to even if
 **J1-frappe.get_all() called directly inside the Jinja template, versus pre-computed in before_print() and referenced as doc.precomputed_field — explain the difference.**
 when frappe.get_all() is called directly inside the Jinja template everytime the whole data is fetched but if it is pre-computed it can be used easily and is optimized.
 
-
-
+**E1-Call self.save() inside on_update to "make sure totals are fresh" and observe what breaks. Explain and correct it in README_internals.md.**
+Calling self.save() on on_update will cause recursion because both on_update() and salf.save will call save causing an infinite loop
 
